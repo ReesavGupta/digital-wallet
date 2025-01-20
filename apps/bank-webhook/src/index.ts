@@ -2,7 +2,11 @@ import express from 'express'
 import db from '@repo/db/client'
 const app = express()
 
+app.use(express.json())
+
 app.post('/hdfcTransaction', async (req, res) => {
+  console.log('this is token: ', req.body.token, '\n\n')
+  console.log('this is userId: ', req.body.user_identifier, '\n\n')
   const paymentInformation = {
     token: req.body.token,
     userId: req.body.user_identifier,
@@ -12,7 +16,7 @@ app.post('/hdfcTransaction', async (req, res) => {
     await db.$transaction([
       db.balance.update({
         where: {
-          id: paymentInformation.userId,
+          userId: paymentInformation.userId,
         },
         data: {
           amount: {
@@ -33,6 +37,7 @@ app.post('/hdfcTransaction', async (req, res) => {
 
     res.status(200).json('captured')
   } catch (error) {
+    console.log('error : ', error)
     res.status(500).json('Couldnt process transaction')
   }
 })

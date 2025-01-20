@@ -48,6 +48,13 @@ export const authOptions = {
             },
           })
 
+          await db.balance.create({
+            data: {
+              userId: user.id,
+              amount: 0,
+              locked: 0,
+            },
+          })
           return {
             id: user.id.toString(),
             name: user.name,
