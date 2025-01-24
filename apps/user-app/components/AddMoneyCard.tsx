@@ -24,7 +24,7 @@ export const AddMoney = () => {
   )
 
   const [amount, setAmount] = useState<number>(0)
-  const [provider, setProvider] = useState<string>('')
+  const [provider, setProvider] = useState<string>('HDFC Bank')
 
   return (
     <Card title="Add Money">
@@ -54,6 +54,7 @@ export const AddMoney = () => {
         <div className="flex justify-center pt-4">
           <Button
             onClick={async () => {
+              // console.log(provider)
               await createOnrampTransaction(amount, provider)
               window.location.href = redirectUrl || ''
             }}
