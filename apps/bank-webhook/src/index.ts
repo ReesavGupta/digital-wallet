@@ -40,6 +40,7 @@ app.post('/hdfcTransaction', async (req, res) => {
         }),
       ])
       res.status(200).json('captured')
+      return
     }
     res.status(400).json({ message: 'transasction isn`t in processing state' })
   } catch (error) {
